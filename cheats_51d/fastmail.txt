@@ -1,0 +1,16 @@
+# Fastmail
+
+## Nameservers
+
+  ns1.messagingengine.com
+  ns2.messagingengine.com
+
+
+## SMTP
+
+   smtp.fastmail.com
+
+   465
+
+
+

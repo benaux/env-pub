@@ -1,0 +1,9 @@
+date:
+
+date "+%y-%m-%d"
+
+2017-07-25
+
+unix time stamp
+
+  date +%s 

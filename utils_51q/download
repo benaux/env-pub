@@ -1,0 +1,4 @@
+#!/bin/sh
+
+
+~/local/singlefile/singlefile/cli/single-file --browser-executable-path '/Applications/Iridium.app/Contents/MacOS/Iridium' $@

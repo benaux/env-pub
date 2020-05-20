@@ -1,0 +1,68 @@
+#!/usr/bin/perl
+
+# nothing nice to see here, please go on ...
+#
+use strict;
+use warnings;
+use Getopt::Long qw(GetOptions);
+use List::MoreUtils qw(all any);
+use Cwd 'realpath';
+use File::Basename;
+
+my @decfilter = qw( hd0i hd0o hs0i hs0o cd2i cd2o cs2i cs2o);
+my $folder;
+my $type;
+GetOptions(
+'dir=s' => \$folder ,
+'type=s' => \$type) ;
+
+my ($searchterm, @filters) = @ARGV;
+
+die "usage: searchterm [folder]" unless $searchterm;
+my @res;
+
+my $searchtypes = {
+   d => q("kMDItemKind == 'Folder'"),
+   f => ""
+ };
+
+my $st = ($type) ? $searchtypes->{$type} : "";
+
+if($folder){
+
+   #my $path = (-l $folder) ? realpath($folder) : $folder;
+   my $path = realpath($folder) ;
+   #die "mdfind -onlyin '$path'  -name '$searchterm')";
+  if ( -d "$path" ){ 
+    print qq(mdfind -onlyin "$path"  -name "$searchterm" );
+    @res = qx(mdfind -onlyin "$path"  -name "$searchterm" );
+  }else{
+      die "Err: invalid folder $path"
+  }
+}else{
+  print qq(mdfind -name "$searchterm" );
+  @res = qx(mdfind -name "$searchterm" )
+}
+
+my $last;
+if(@filters){
+  foreach my $ln (@res){
+    chomp $ln;
+  if (all { $ln =~ /$_/ } @filters){
+   if (any { $ln =~ /$_/ } @decfilter){
+     if($type eq 'd'){
+       my $dir = dirname ($ln);
+
+      print $dir . "\n" unless $dir eq $last;
+      $last = $dir;
+     }else{
+    print $ln . "\n";
+      }
+   }
+  }
+   }
+}else{
+  foreach my $ln (@res){
+    print $ln ;
+  }
+}

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# ls with full pathname
+
+if [ -n "$1" ] ; then
+  ls -d $1*
+else
+  ls -d *
+fi
+

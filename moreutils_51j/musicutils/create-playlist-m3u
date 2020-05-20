@@ -1,0 +1,28 @@
+#!/bin/sh
+
+dir="$1"
+
+m3u_playlist="$dir".m3u
+
+rm -f "$m3u_playlist"
+touch "$m3u_playlist"
+
+for songpath in "$dir"/* ; do
+   [ -f "$songpath" ] || continue
+   song=$(basename "$songpath")
+
+   case "$song" in
+      *.mp3|*.m4a)
+         echo "$songpath"
+         echo "$songpath" >> "$m3u_playlist"
+      ;;
+      *) : ;;
+   esac
+done
+
+echo "" 
+echo "Stored in: "
+echo  "$m3u_playlist"
+
+
+

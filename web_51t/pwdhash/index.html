@@ -1,0 +1,67 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <!-- Please use https://www.pwdhash.com/ -->
+  <meta name="robots" content="noindex">
+  <!--* Remote PwdHash Form
+      * An HTML form that calls the JavaScript implementation of PwdHash
+      * Version 1.0 Copyright (C) Stanford University 2004-2005
+      * Contributors: Dan Boneh, Collin Jackson, John Mitchell, Nick Miyake, and Blake Ross
+      * Distributed under the BSD License
+      * See http://crypto.stanford.edu/PwdHash for more info.
+      *-->
+  <title>Remote PwdHash</title>
+  <script src="PwdHash_files/md5.js" type="text/javascript"></script>
+  <script src="PwdHash_files/pwdhash.js" type="text/javascript"></script>
+  <script src="PwdHash_files/hashed-password.js" type="text/javascript"></script>
+  <script src="PwdHash_files/domain-extractor.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="PwdHash_files/pwdhash.css">
+</head>
+<body onload="Init();">
+  <h1>Remote PwdHash 0.8</h1>
+<div class="versionlinks">Versions: <a href="https://crypto.stanford.edu/PwdHash/RemotePwdHash0.4">0.4</a> | <a href="https://crypto.stanford.edu/PwdHash/RemotePwdHash0.6/">0.6</a>
+ | <a href="https://crypto.stanford.edu/PwdHash/RemotePwdHash0.7/">0.7</a>  | 0.8
+<br>
+See also: <a href="http://alexking.org/pw">Alex King's version</a></div><br>
+  <form name="hashform" action="error.html" method="POST" onsubmit="setTimeout('GenerateToTextField()', 0); return false;" kpxcform-initialized="true" kpxcusername="kpxcpw342845639" kpxcpassword="kpxcpw342845640">
+  <table id="theHashForm"><tbody><tr>
+    <td class="stepList">
+    <div class="step" id="theSiteDomain">
+      <h3>Strings</h3>
+      <p><input type="text" name="domain" data-kpxc-id="kpxcpw342845639" kpxc-username-field="true" value="http://www.example.com/"></p>
+    </div>
+    <div class="step" id="theSitePassword">
+      <h3>Site Password</h3>
+      <p><input type="password" name="sitePassword" data-kpxc-id="kpxcpw342845640" kpxc-password-generator="true" kpxc-pwgen-next-field-exists="false" kpxcfields-onchange="true"></p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="stepList" colspan="2">
+      <div class="step" id="theHashedPassword">
+        <h3>Hashed Password</h3>	
+	  <span id="theGeneratePanel">
+	    <input type="text" name="hashedPassword" disabled="disabled" data-kpxc-id="kpxcpw342845641" value="Press Generate">
+	    <input type="submit" name"submitbutton"="" value="Generate">
+          </span>
+      <p align="center"><a id="theToggleModeLink" href="javascript:ToggleAdvancedMode()"></a></p>
+      </div>
+    </td>
+  </tr>
+  </tbody></table>
+  <div id="theexplanation">
+    <h3> Some strings: </h3> 
+    <ul>
+      <li>fastmail,u6a0-bkb</li>
+      <li>apple,#kb_u6a0-bkb</li>
+      <li>luckycloud,#kb_u6a0-bkb</li>
+    </ul>
+  </div>
+  </form>
+  <div id="footer">
+    <a href="http://crypto.stanford.edu/PwdHash/">PwdHash home page</a> |
+    <a href="http://pajhome.org.uk/crypt/md5">MD5 implementation</a> |
+    <a href="https://crypto.stanford.edu/PwdHash/RemotePwdHash0.8/hashed-password.js">Password hashing source code</a>
+  </div>
+
+
+<div class="kpxc kpxc-username-icon lock-moz" title="Database is locked" alt="Username field icon" size="18" offset="1" kpxc-pwgen-field-id="kpxcpw342845639" style="z-index: 10000000; width: 18px; height: 18px; top: 152.867px; left: 573.833px; display: block;"></div></body></html>

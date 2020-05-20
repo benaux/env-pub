@@ -1,0 +1,22 @@
+#!/bin/sh
+
+USAGE='<scm file> [camlp5 home path]'
+
+inputfile=$1
+camlp5_home=$2
+
+camlp5_default_home=$HOME/local/camlp5/camlp5
+
+die () { echo $@; exit 1; }
+
+[ -f "$inputfile" ] || die "Err: no input. usage $USAGE"
+
+[ -n "$camlp5_home" ] || camlp5_home="$camlp5_default_home"
+
+camlp5_bin=$camlp5_home/main/camlp5 
+camlp5_inc=$camlp5_home/etc
+
+[ -f "$camlp5_bin" ] || die "Err: couldnt find camlp5"
+[ -d "$camlp5_inc" ] || die "Err: couldnt find camlp5 etc"
+
+${camlp5_bin} -I $camlp5_inc pa_o.cmo pr_scheme.cmo -impl $inputfile | perl -pe 's/\(\*(.*)\*\)/;$1/g'

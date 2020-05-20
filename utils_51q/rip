@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+if which -s rg ; then
+  rg -il $@
+else
+  grep -lir $@
+fi
+
+

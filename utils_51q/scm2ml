@@ -1,0 +1,47 @@
+#!/bin/sh
+
+USAGE='<scm file> [camlp5 home path]'
+
+inputfile=$1
+camlp5_home=$2
+preproc_inputfile=$3
+
+camlp5_default_home=$HOME/local/camlp5/camlp5
+
+die () { echo $@; exit 1; }
+
+[ -f "$inputfile" ] || die "Err: no input. usage $USAGE"
+
+[ -n "$camlp5_home" ] || camlp5_home="$camlp5_default_home"
+
+camlp5_bin=$camlp5_home/main/camlp5 
+camlp5_inc=$camlp5_home/etc
+
+[ -f "$camlp5_bin" ] || die "Err: couldnt find camlp5"
+[ -d "$camlp5_inc" ] || die "Err: couldnt find camlp5 etc"
+
+
+intermed=
+if [ -f "$preproc_inputfile" ] ; then
+    intermed=$inputfile.pp
+    #echo perl ~/tools/utils/scm2ml_preproc.pl $inputfile $preproc_inputfile 
+    perl ~/tools/utils/scm2ml_preproc.pl $inputfile $preproc_inputfile > $intermed
+  else
+    intermed=$inputfile
+fi
+
+tmperr=$(mktemp)
+tmpout=$(mktemp)
+
+
+${camlp5_bin} -I $camlp5_inc pa_scheme.cmo pr_o.cmo  -impl "$intermed" 2>>$tmperr 1>>$tmpout
+
+err=
+[ -f "$tmperr" ] && err="$(cat $tmperr)"
+
+if [ -n "$err" ]; then
+    #echo perl ~/tools/utils/scm2ml_err.pl $intermed $tmperr
+    perl ~/tools/utils/scm2ml_err.pl $intermed $tmperr
+else
+    [ -f "$tmpout" ] && cat $tmpout | perl -pe 's/^\s*;+(.*)$/\(\*$1 \*\)/g' 
+fi

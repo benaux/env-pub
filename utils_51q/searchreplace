@@ -1,0 +1,19 @@
+#!/bin/sh
+
+search="$1"
+replace="$2"
+input="$3"
+
+[ -n "$input" ] || { echo "usage: <search> <replace> <dir>"; exit 1; }
+
+if [ -f "$input" ]; then
+   perl -p -e "s/$search/$replace/g" $input 
+elif [ -d "$input" ] ; then
+   find "$input" -type f -exec perl -pi -e "s/$search/$replace/g" {} \;
+else
+  echo "Err: invalid dir"
+  exit 1
+fi
+
+
+

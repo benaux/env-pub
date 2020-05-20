@@ -1,0 +1,63 @@
+#!/bin/sh
+
+urn_home_default=$HOME/local/urn/urn
+
+die () { echo $@; exit 1; }
+
+basedir= urn_input=
+while [ "$#" -gt 0 ]; do
+  arg=$1
+  shift
+
+  case "$arg" in
+    -h|--help) die "usage: -h help , -d base dir" ;;
+    -b|--basedir) basedir="$1" && shift ;;
+    *)  urn_input=$arg;
+  esac
+done
+
+urn_home=
+if [ -n "$basedir" ] ; then
+  urn_home=$basedir
+else
+  urn_home=$urn_home_default
+fi
+
+[ -d "$urn_home" ] || die "Err: no urn home in $urn_home"
+
+urn_bin=$urn_home/bin/urn.lua
+[ -f "$urn_bin" ] || die "Err: no urn file in $urn_bin"
+
+
+luabin=
+if which luajit >> /dev/null; then
+   luabin=$(which luajit)
+elif which lua >> /dev/null ; then
+   luabin=$(which lua)
+else
+   dir "Err: no lua installed"
+fi
+
+
+if [ -n "$urn_input" ] ; then
+  
+  urn_dir=$(dirname "$urn_input")
+  urn_base=$(basename "$urn_input")
+  urn_name=${urn_base%.*}
+
+  lua_base=$urn_name.lua
+  lua_file=$urn_dir/$lua_base
+
+  rm -f $lua_file
+  rm -f $urn_dir/out.lua
+
+  ${luabin} ${urn_bin} --emit-lua "$lua_file" "$urn_input" &&  ${luabin}  "$lua_file" || die "Err: couild not compile"
+else
+  if which rlwrap >> /dev/null; then
+     rlwrap ${luabin} ${urn_bin} --repl
+  else
+     ${luabin} ${urn_bin} --repl
+  fi
+fi
+
+

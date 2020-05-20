@@ -1,0 +1,31 @@
+Perl Oneliners
+--------------
+
+-e '...'                   program
+-s='...'        command line arg
+
+cat /etc/hosts | perl -sne '/localhost/ && print $d ' /etc/hosts -- -d='"success!"'
+
+perl -se  '/whatever/ && print  for <>' -- -u=diamond /etc/hosts 
+
+### simple replace
+
+echo 'xx' | perl -pe 's/x/y/g'  # prints 'yy'
+
+
+### Looping: 
+
+-n                assume 'while (<>) { ... }' loop around program
+-p                assume loop like -n but print line also, 
+-l                print endline
+-i[extension]   edit <> files in place (makes backup if extension supplied)
+
+
+### Splitting
+
+
+### search and replace
+
+in strings
+
+   echo "hello_95_.txt" | perl -ne 's/.*([0-9]+).*/\1/'

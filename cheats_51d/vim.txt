@@ -1,0 +1,30 @@
+Vim
+----
+
+## show special whitespace character
+
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
+set list
+
+### Editing
+
+    open file read-only: vim -R
+
+    remote files:
+        new server: vim –servername SERVER file1.txt
+
+        open file in this remote server:
+            vim –servername SERVER –remote-tab file2.txt file3.txt
+
+
+### Graphical Vim 
+
+   config example:
+      if has("gui_running")
+     syntax on
+     set hlsearch
+     colorscheme macvim
+     set bs=2
+     set ai
+     set ruler
+   endif

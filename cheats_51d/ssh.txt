@@ -1,0 +1,96 @@
+SSH
+===
+
+## start gui on remote machine
+
+   ssh superserver "DISPLAY=:0 nohup firefox"
+
+`nohup` let the app stay open after disconnect
+
+## SSH in a nutshell
+
+  ssh-keygen -t rsa -b 4096 -N '' -C "my ben@auxdir.com" -f ~/.ssh/id_rsa
+
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/id_rsa
+
+  chmod 700 ~/.ssh
+  chmod 644 ~/.ssh/authorized_keys
+  chmod 644 ~/.ssh/known_hosts
+  chmod 644 ~/.ssh/config
+  chmod 600 ~/.ssh/id_rsa
+
+
+## Permissions
+
+chmod 700 ~/.ssh 
+chmod 600 ~/.ssh/*
+chmod 644 ~/.ssh/*.pub
+
+## Restart ssh
+
+### Ubntu
+   service ssh restart
+
+### Restart SSHD on mac os x
+
+   sudo launchctl stop com.openssh.sshd
+   sudo launchctl start com.openssh.sshd
+
+
+## Check ssh connection 
+
+   $ ssh -q user@downhost exit
+   $ echo $? -> 255
+
+   $ ssh -q user@uphost exit
+   $ echo $? ->  0
+
+
+
+## Passwordless login
+
+
+## Change SSH Password
+
+   ssh-keygen -p -f ~/.ssh/id_dsa
+
+* Generate new key
+
+   ssh-keygen -b 4096 -t rsa -C "twik_profile: twik-token 2017-06-01" -f ~/.ssh/hostname-specialuser
+
+   ssh-keygen -t rsa -b 4096 -f ~/.ssh/mykey -C "your_email@example.com"
+
+    password for ssh keys are cached with [keychain](http://www.funtoo.org/Keychain)
+
+    how can I check my ssh password: ssh-keygen -y -f /mykey.rsa
+
+        this is printing the public key
+
+    Add ssh to ssh-agent 
+
+        ssh-add ~/.ssh/mykey
+
+## Forbids password authentication 
+
+Change in '/etc/ssh/sshd_config':
+
+	PasswordAuthentication no
+	ChallengeResponseAuthentication no
+
+Allows password authentication from all RFC1918 private IP ranges inside LAN. 
+
+	Match Address 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+		PasswordAuthentication yes
+
+## Restart SSHD on mac os x
+
+   sudo launchctl stop com.openssh.sshd
+   sudo launchctl start com.openssh.sshd
+
+
+# Restart ssh on mac os x
+
+
+sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist

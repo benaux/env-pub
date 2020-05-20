@@ -1,0 +1,27 @@
+#!/bin/sh
+
+
+target_session=$1
+
+
+target_session=
+case "$1" in
+   -h|--help) echo "usage: <tmux target session> (default: out)"
+      exit 1
+      ;;
+   -t|--target)
+      target_session=$2
+      shift
+      shift
+      ;;
+   *)
+      target_session=out
+    ;;
+esac
+
+cwd=$(pwd)
+
+if tmux has-session -t $target_session ; then
+   tmux send-keys -t $target_session "$*" Enter
+fi
+

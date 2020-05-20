@@ -1,0 +1,28 @@
+Tmux
+----
+
+## Tmux and environment variables
+
+update environment with 
+
+   tmux setenv BAR 33 
+
+### Name of the current session:
+
+    tmux display-message -p '#S'
+
+#### Name of active window
+
+   tmux display-message -p '#W'
+
+with target: 
+
+   mux -t "target-window" display-message -p '#W'
+
+
+
+
+Sess=$(tmux display-message -p '#S')
+win=$(tmux display-message -p '#I')
+pane=$(tmux display-message -p '#P')
+

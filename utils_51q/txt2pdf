@@ -1,0 +1,44 @@
+#!/bin/sh
+
+input=$1
+
+base=${input%.*}
+
+pdf_output=$base.pdf
+html_output=$base.html
+
+
+[ -f "$pdf_output" ] && {
+   echo "Err: pdf output already exists"
+   exit 1
+}
+
+os=$(uname)
+case "$os" in
+   Darwin)
+      #No specify font:
+      #textutil -convert html $input
+
+      textutil -font 'Menlo Regular' -fontsize 13 -convert html -output "$html_output" $input 
+
+      if cupsfilter --list-filters "$html_output" >> /dev/null ; then
+         cupsfilter  "$html_output" > "$pdf_output"
+      else
+        if which wkhtmltopdf; then
+          wkhtmltopdf "$html_output" "$pdf_output"
+        else
+          echo "Err: Neither cupsfilter no wkhtmltopdf installed"
+        fi
+
+      fi
+
+    echo "Cleaning rm -f $html_output"
+    rm -f $html_output
+
+    ;;
+  *)
+    echo "Err: todo $os"
+    exit 1
+    ;;
+esac
+

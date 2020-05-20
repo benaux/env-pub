@@ -1,0 +1,24 @@
+#!/bin/sh
+
+
+
+
+tab="$1"
+win="$2"
+
+tmuxtarget=remoteout
+
+[ -n "$win" ] || win=1
+
+if [ -n "$tab" ] ; then
+  case "$tab" in
+    [0-9]*)
+      tmux send-keys -t "$tmuxtarget" "osascript ~/tools/automat/chrome/activate-tab.applescript $win $tab" Enter
+      ;;
+    *)
+      tmux send-keys -t "$tmuxtarget" "osascript ~/tools/automat/chrome/list-tabs.applescript | grep -i $tab" Enter
+      ;;
+  esac
+else
+   tmux send-keys -t "$tmuxtarget" "osascript ~/tools/automat/chrome/list-tabs.applescript" Enter
+fi

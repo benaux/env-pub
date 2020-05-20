@@ -1,0 +1,8 @@
+diff
+
+only show filenames
+
+   dif -qr dir1 dir2
+
+   -q   Report only whether the files differ, not the details of the differences.
+   -r   When comparing directories, recursively compare any subdirectories found.

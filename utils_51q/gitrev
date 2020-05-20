@@ -1,0 +1,24 @@
+#!/bin/sh
+
+
+
+inputdir=$1
+
+
+
+if [ -n "$inputdir" ] ; then
+   if [ -d "$inputdir" ] ; then
+      cd "$inputdir" 
+   else
+     echo "Err: invalid dir" 1>&2
+     exit 1
+   fi
+fi
+
+
+
+git rev-list --count --first-parent HEAD
+
+#git describe --always
+
+

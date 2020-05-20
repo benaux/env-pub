@@ -1,0 +1,24 @@
+#!/bin/sh
+
+input="$1"
+
+[ -n "$input" ] || { echo "usage: input" ; exit 2; }
+
+year=$(date +"%Y")
+past=$(expr $year - 5)
+
+i=$year res=
+while [ "$i" -gt $past ] ; do
+  res="$(mdfind -name \"bk$i\")"
+  if [ -n "$res" ] ; then
+    break
+  fi
+  i=$(($i-1))
+done
+
+if [ -n "$res" ] ; then
+  echo "$res"
+else
+  echo "sorry, no result ...."
+fi
+

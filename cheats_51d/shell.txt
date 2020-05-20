@@ -1,0 +1,11 @@
+# Shell scripting
+
+## read silent
+
+echo "pw:"
+read -s pw
+
+## test if symlink
+
+   [ -L file && -d file ]
+

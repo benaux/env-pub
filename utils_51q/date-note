@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+# why bash: more options in `read`
+
+USAGE='<target-dir> <title-inptu>'
+
+target_dir="$1"
+shift
+title_input="$@"
+
+## ----- library -------
+os=$(uname)
+
+die () { echo $@; exit 1; }
+
+usage () { die "usage:  $(basename $0) - $USAGE " ; }
+
+case "$target_dir" in
+  -h|--help) usage ;;
+  *) : ;;
+esac
+
+clip () {
+  case "$os" in
+    Darwin) printf "$1" | pbcopy ;;
+    *) die "Err: os $os not impl" ;;
+  esac
+}
+
+## ---------------------
+
+[ -n "$target_dir" ] || usage 
+
+base10tobase26=$HOME/tools/moreutils/morelib/math/base10tobase26.pl
+[ -f "$base10tobase26" ] || die "Err: script base10tobase26 missing"
+
+[ -n "$title_input" ] || {
+   echo "Enter title:"
+   read title_input
+ }
+
+[ -n "$title_input" ] || die "Err: no title"
+
+filetitle=$(perl -e '$ARGV[0] =~ s/[^a-zA-Z0-9]+/_/g; $ARGV[0] =~ s/^_+|_+$//g;  print(lc($ARGV[0]))' "$title_input")
+
+#basetag=$(basename "$target_dir")
+#echo ""
+#echo "Please enter some space separated tags for title '$title': "
+#read -e -i "$basetag " spacetags 
+#tags=$(perl -e '$ARGV[0] =~ s/[^a-zA-Z0-9]+/_/g; $ARGV[0] =~ s/^_+|_+$//g;  print(lc($ARGV[0]))' "$spacetags")
+
+day=$(date +%d) month=$(date +%m) year=$(date +%Y) hour=$(date +%H) minute=$(date +%M) second=$(date +%S)
+hour_min_sec=$hour$minute$second
+
+hms_base26=$(perl ${base10tobase26} $hour_min_sec) 
+
+id_day_minute_base26=$year$month$day$hms_base26
+
+file_path=
+if [ -n "$tags" ] ; then
+   die "Todo tags"
+   #file_path="$target_dir"/"${filetitle}--${tags}-$date32".txt
+else
+   file_path="$target_dir"/"${id_day_minute_base26}_${filetitle}".txt
+fi
+
+if [ -f "$file_path" ]; then
+   die "Err: file already exists $file_path"
+else 
+   mkdir -p "$target_dir"
+   {
+      echo "$title_input"
+      echo ""
+#  echo "   date: $day.$month.$year"
+  #echo "   date: $day.$month.$year $hour:$minute:$second"
+      echo "   id: $id_day_minute_base26"
+      echo ""
+      echo ""
+      echo ""
+      [ -f "$txt_temp_file" ] && cat "$txt_temp_file"
+   } > "$file_path"
+fi
+
+clip "$file_path" 
+
+echo ""
+echo "Done! (file path in clipboard)"
+echo "txt: $file_path"

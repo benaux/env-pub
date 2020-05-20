@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+$dir=$ARGV[0];
+
+opendir(my $dh, '.') or die "Err: cannot open $dir";
+
+foreach my $link (readdir $dh) {
+  if ( -l $link ) {
+    unless ($link =~ /\s*\..*$/) {
+      print "Removing  link $link\n";
+      unlink $link;
+  }
+  }
+
+}
+
+closedir DIR;

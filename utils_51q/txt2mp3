@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# Copyright (c) ben@diraux.com
+
+HELP='convert a written text in a spocken mp3 file'
+
+USAGE='<text file> [voice]'
+
+file_input="$1"
+voice_input="$2"
+
+voice_default="Petra"
+
+warn () { echo "$@" 1>&2; } 
+die () { echo "$@" 1>&2; exit 1; } 
+usage () { die "usage '$(basename $0)': $USAGE" ; }
+
+[ -n "$file_input" ] || usage  
+case "$file_input" in
+  -h|--help) warn "$HELP" ; usage ;;
+  *) : ;;
+esac
+
+[ -f "$file_input" ] || die "Err: no text file" 
+
+os=$(uname)
+[ "$os" = "Darwin" ] || die "Err: only runs on macos"
+
+voice=
+if [ -n "$voice_input" ]; then
+  voice="$voice_input"
+else
+  voice="$voice_default"
+fi
+
+[ -n "$voice" ] || die "err: no voice" 
+
+aiff_tmp=$(mktemp)
+[ -f "$aiff_tmp" ] || die "err: no temp aiff_tmp" 
+
+say -v Petra -f "$file_input" -o "$aiff_tmp" 
+[ "$?" = "0" ] || die "err: something went wrong with the 'say' command"
+
+[ -f "$aiff_tmp" ] || die "err: no temp aiff_tmp" 
+
+
+dirpath=$(dirname "$file_input")
+filename=$(basename "$file_input")
+filebase=${filename%.*}
+
+mp3_file="$dirpath/$filebase.mp3"
+
+lame -m m "$aiff_tmp"  "$mp3_file"  2>  /dev/null
+[ "$?" = "0" ] || die "err: something went wrong with the 'lame' command"
+

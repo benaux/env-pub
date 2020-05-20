@@ -1,0 +1,52 @@
+Android Development
+--------------------
+
+## problem with the emulator
+
+QT errors, panic , etc
+
+solution: take the correct path (not the old one), sth. like ~/opt/android-sdk/emulator/
+
+
+## Installing Android sdk
+
+target: sdk that can be used on its own and by the IDE:
+
+1. Installing Android Studio
+2. Moving sdk in ~/Library/Android/sdk to ~/opt/android-sdk
+3. update locatation in Appereance -. Env. Variables
+
+
+### list Emulators
+
+emulator -list-avds
+
+### Run Emulator
+
+   emulator -avd testAVD
+
+### Android Environment Variables
+
+There a two most important variable, the other depend on them
+
+   ANDROID_SDK_ROOT=HOME/opt/android/sdk
+
+(ANDROID_HOME is deprecated)
+
+   ANDROID_EMULATOR_HOME=$HOME/.android
+
+### Install an avd 
+
+Install a system-iname:
+   sdkmananger 'system-images;android-23;google_apis;x86'
+
+Create an AVD:
+
+   avdmanager create avd --force --name testAVD --abi google_apis/x86 --package 'system-images;android-23;google_apis;x86'
+
+or 
+   echo "no" | avdmanager --verbose create avd --force --name x86 --device "4in WVGA (Nexus S)" --package "system-images;android-24;google_apis;x86" --tag "google_apis" --abi "x86"
+
+Run emulator
+
+   emulator -avd testAVD

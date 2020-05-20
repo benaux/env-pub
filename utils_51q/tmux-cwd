@@ -1,0 +1,23 @@
+#!/bin/sh
+
+target=
+if [ -n "$1" ]; then
+   target="$1"
+else
+  target=out
+fi
+
+
+case "$1" in
+  -*) echo "usage: <tmux target session> (default: out)"
+    exit 1
+    ;;
+  *)
+    :
+    ;;
+esac
+
+cwd=$(pwd)
+
+tmux send-keys -t "$target" "cd $cwd" Enter
+
