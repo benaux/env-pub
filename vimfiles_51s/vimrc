@@ -3,6 +3,8 @@ syntax on
 filetype plugin indent on
 
 
+au BufNewFile,BufRead *.scm setl filetype=scheme
+au BufNewFile,BufRead *.ss setl filetype=scheme
 
 
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
@@ -53,10 +55,10 @@ syntax on
 if !empty(glob(expand("~/.vim/bundle")))
    execute pathogen#infect()
 
-	"au VimEnter * RainbowParenthesesToggle
-	"au Syntax * RainbowParenthesesLoadRound
-	"au Syntax * RainbowParenthesesLoadSquare
-	"au Syntax * RainbowParenthesesLoadBraces
+	au VimEnter * RainbowParenthesesToggle
+	au Syntax * RainbowParenthesesLoadRound
+	au Syntax * RainbowParenthesesLoadSquare
+	au Syntax * RainbowParenthesesLoadBraces
 endif
 
 
@@ -134,6 +136,12 @@ inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
 inoremap <C-@> <c-x><c-o>
 let g:slime_target = "tmux"
+
+
+"augroup rainbow_lisp
+"  autocmd!
+"  autocmd FileType lisp,clojure,scheme RainbowParentheses
+"augroup END
 
 "let g:vim_parinfer_globs = ['*.fnl']
 "let g:vim_parinfer_globs = ['*.lisp', '*.fnl', '*.scm']

@@ -3,6 +3,14 @@ set UTILS "$TOOLS/utils"
 set CMDS "$TOOLS/cmds"
 set MOREUTILS "$TOOLS/moreutils"
 set MOREUTILSBIN "$TOOLS/moreutils-bin"
+set AUTOMAT "$TOOLS/automat"
+
+alias pwdc "sh $UTILS/pwdcopy.sh"
+
+alias viewer "sh $TOOLS/automat/viewer/viewer.sh"
+
+function gir; grep -lir $argv .; end
+
 
 function el; elinks -remote "openURL($argv)"; end
 
@@ -32,7 +40,7 @@ alias obt $CMDS/org-babel-tangle
 alias dev-sw-opensource "sh $MOREUTILS/devutils/sw-opensource.sh"
 
 alias ssh-load-ssh-keys "sh $MOREUTILS/ssh/load_ssh_keys.sh"
-alias twikpw "perl $UTILS/twikpw.pl"
+alias twikpw "perl $MOREUTILS/secutils/twikpw.pl"
 alias pwdhash "bash $TOOLS/moreutils/crypto/pwdhash.bash"
 alias pwh pwdhash
 alias pwcalc "sh $TOOLS/moreutils-bin/pwcalc.sh"
@@ -123,7 +131,7 @@ alias chmox "chmod 0755"
 
 #alias ack "ack-grep"
 
-alias upl "/home/bkb/builds/perl/upl/upl -I /home/bkb/builds/perl/upl/lib"
+#alias upl "/home/bkb/builds/perl/upl/upl -I /home/bkb/builds/perl/upl/lib"
 
 alias l "ls | grep -v \.plist"
 alias ll "ls -al | grep -v \.plist"
@@ -281,8 +289,7 @@ alias sb sec-stamp-base
 alias msec-stamp-base "sh $HOME/tools/moreutils/stamps/msec-stamp-base26.sh"
 alias msb msec-stamp-base
 
-alias mygosh "sh ~/tools/moreutils/gauche/mygosh.sh"
-#alias mygosh "/usr/bin/env gosh -I $HOME/libs/gauche/"
+alias mygosh "sh ~/tools/moreutils/schemeutils/mygosh.sh"
 alias morsgosh "sh /Users/bkb/r/tools/moreutils/gauche/morsgosh.sh"
 alias mg morsgosh 
 
@@ -296,3 +303,8 @@ end
 alias dr decref
 
 alias cdreal "cd (realpath (pwd))"
+
+alias crock-note "sh $MOREUTILS/noteutils/crock-note.sh"
+alias minute-note "sh $MOREUTILS/noteutils/minute-note.sh"
+
+alias crock-minute "sh $MOREUTILS/stamputils/crock-minute.sh"

@@ -1,20 +1,6 @@
 
+foo () {
+  echo $1
+}
 
-nnn=".blalaname.dec.txt"
-
-
-echo nnnname $nnn
-
-echo ""
-
-doppelprozent=${nnn%%.*}
-echo dp doppelprozent $doppelprozent
-
-prozent=${nnn%.*}
-echo p prozent $prozent
-
-doppelkreuz=${nnn##*.}
-echo dk  $doppelkreuz
-
-kreuz=${nnn#*.}
-echo k $kreuz
+foo lll

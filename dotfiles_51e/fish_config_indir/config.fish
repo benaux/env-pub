@@ -9,6 +9,13 @@
 #
 set -U NVIM_LISTEN_ADDRESS /tmp/nvimsocket
 
+# This comes from perl Makefile.PL PREFIX $HOME
+if [ -d "$HOME/libs/perl" ]
+   set -gx PERL5LIB $HOME/libs/perl
+else if [ -d "$HOME/lib/perl5/site_perl" ]
+   set -gx PERL5LIB $HOME/lib/perl5/site_perl
+end
+
 #
 #" fish_vi_modl
 #

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+HELP='Filters the output of "ls" with a perl regex'
+
+USAGE='<perl regex> [dir]'
+
+
+filter="$1"
+
+[ -n "$filter" ] || {
+  echo "usage: $USAGE" 1>&2 
+   exit 1
+ }
+
+dir=
+if [ -n "$2" ] ;then
+   dir="$2"
+else
+   dir='.'
+fi
+
+
+#ls "$dir" | grep  -i $filter
+
+ls "$dir" | perl -ne "/$filter/i && print"

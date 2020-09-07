@@ -1,6 +1,26 @@
 Perl
 ====
 
+
+## Call function in a regular expression (regex)
+
+## e: call a function 
+
+   sub f { ..  }
+   $str =~ s/(\w)(\w)/ '$' .  f($2) . f($1) /e;
+
+### ee: eval the eval 
+
+   $text =~ s{(\w+_\d+)}{ "$1()"}eeg;
+
+
+
+
+
+Leading and Trailing Whitespace removal
+
+$str =~ s/^\s+|\s+$//g
+
 Dir listing
 ----------
 

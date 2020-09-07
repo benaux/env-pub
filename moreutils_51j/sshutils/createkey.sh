@@ -11,7 +11,7 @@ cwd=$(pwd)
 die () { echo $@; exit 1; }
 
 twikpw () { # cmd used below
-  perl $HOME/tools/utils/twikpw.pl $@
+  perl $HOME/tools/moreutils/secutils/twikpw.pl $@
   if [ "$?" -eq "0" ] ; then 
      echo "Ok: Password successfully stored in clipboard"
    else
@@ -46,7 +46,7 @@ tooldir=$keydir_dir_base/$keydir_base
 
 minute_stamp=$(date +"%Y%m%d%H%M")
 
-stamp=${signature}-${minute_stamp}
+stamp=${minute_stamp}-${signature}
 
 keyname= keytarget=
 case $keydomain in

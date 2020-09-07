@@ -1,6 +1,5 @@
 
 
-
 homebase=$HOME/base
 mkdir -p $homebase
 
@@ -134,7 +133,7 @@ find_decimalfiles () {
          filename=
 
          case "$filebase" in 
-           *.decfile) 
+           *.decfile|*.plist) 
              continue 
              ;;
            .*) filename=${filebase:1} ;;

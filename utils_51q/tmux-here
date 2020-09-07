@@ -1,0 +1,11 @@
+
+
+cwd=$(pwd)
+
+
+cwdbase=$(basename $cwd)
+
+
+herename=${cwdbase%%.*}
+
+tmux new -s $herename

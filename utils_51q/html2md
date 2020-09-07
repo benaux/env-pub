@@ -27,7 +27,7 @@ fi
 [ -f "$inp" ] || { echo "usage: html file" ; exit 1 ; }
 
 if which pandoc > /dev/null ; then
-   pandoc --standalone --from html --to markdown $inp | perl -ne 'print $_ unless (/^\s*\<div/ or /^\s*\<\/div/)' | tee $outf
+   pandoc --standalone --from html --to markdown $inp | perl -ne 's/\[\]\{\#bottom\s+\.anchor\}//g;  s/\[\]\{\#line\-\d+\s*\.anchor\}//g; s/\[\]\{\#line\-\d+//g; s/^\s*\.anchor\}//g; print $_ unless (/^\s*\<div/ or /^\s*\<\/div/ or /^\s*:::/ or /^\s*\[\]\{\#/ or /^\s*\.anchor\}\[\]\{\#/)' | tee $outf
 else
    echo "Err: no 'pandoc' installed" 
    exit 1

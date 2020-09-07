@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cwd=$(pwd)
+
+if [ -n "$2" ] ; then
+   find "$cwd/" -type d -iname "*$1*"  | grep -i $2
+else
+
+#   echo find "$cwd" -iname "*$1*"
+   find "$cwd/" -type d -iname "*$1*"
+fi

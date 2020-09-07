@@ -1,4 +1,14 @@
 #!/bin/sh
+ 
+# Copyright (c) ben@diraux.com 
+# Licensed under MIT license, according to License-MIT.txt in project root.
+
+### Removes dead symbolic links
+###
+### Usage: [directory]
+###
+### Options:
+###   [directory]    Optional directory, default is the current working dir
 
 
 if [ -n "$1" ] ; then

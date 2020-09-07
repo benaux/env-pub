@@ -59,12 +59,26 @@ set -l DART_HOME $HOME/builds/dart/dart-sdk
 set -l FLUTTER_HOME $HOME/builds/flutter/flutter
 set -l SCM_HOME $HOME/builds/scm/scm
 set -l CYCLONE_HOME $HOME/builds/cyclone/cyclone
+set -l COMPOSER_HOME $HOME/.composer/vendor
+set -l COMPOSER_HOME $HOME/.composer/vendor
+set -l ZIG_HOME $HOME/builds/zig/zig
+set -l PYTHON_HOME_USER $HOME/Library/Python/3.7/
+#set -l HASHLINK_HOME $HOME/builds/haxe/hashlink
 
-set -l langhomes $GO_HOME $CARGO_HOME $RACKET_HOME $NODE_HOME $NIM_HOME $NIMBLE_HOME $CABAL_HOME $GAMBIT_HOME $GAMBIT_BUILDS_HOME $BUILDS_HOME $NPM_HOME $GUIX_HOME $LLVM_HOME $BIGLOO_HOME $MONO_MAC_HOME $ARCHIVEBOX_HOME $DART_HOME $FLUTTER_HOME $SCM_HOME $CYCLONE_HOME 
+set -l langhomes $GO_HOME $CARGO_HOME $RACKET_HOME $NODE_HOME $NIM_HOME $NIMBLE_HOME $CABAL_HOME $GAMBIT_HOME $GAMBIT_BUILDS_HOME $BUILDS_HOME $NPM_HOME $GUIX_HOME $LLVM_HOME $BIGLOO_HOME $MONO_MAC_HOME $ARCHIVEBOX_HOME $DART_HOME $FLUTTER_HOME $SCM_HOME $CYCLONE_HOME $COMPOSER_HOME $HASHLINK_HOME $ZIG_HOME $PYTHON_HOME_USER 
 
 for lang in $langhomes
   set bin $lang/bin
-#  echo ll $lang
-   test -d $bin ; and set -gx PATH $bin $PATH
+  if test -d $bin 
+    set -gx PATH $bin $PATH
+  else if test -d $lang 
+    set -gx PATH $lang $PATH
+   else
+     echo "Omit: $lang"
+   end
+  # test -d $bin && echo BBB "'$bin'"
+  #echo ll $lang
 end
+
+#echo pp $PATH
 

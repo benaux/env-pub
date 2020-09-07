@@ -1,3 +1,14 @@
 #!/bin/sh
+ 
+# Copyright (c) ben@diraux.com 
+# Licensed under MIT license, according to License-MIT.txt in project root.
+
+### Prints todays date 
+###
+### Usage:
+###
+### Options:
+###   No options
+
 
 date "+%F"

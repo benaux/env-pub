@@ -7,8 +7,8 @@ arg="$1"
 
 die () { echo $@; exit 1; }
 
-morelib=$HOME/tools/moreutils/morelibs
-base10tobase26=$morelib/math/base10tobase26.pl
+morelib=$HOME/tools/morelibs
+base10tobase26=$morelib/mathlib/base10tobase26.pl
 [ -f "$base10tobase26" ] || die "Err: script base10tobase26 missing"
 
 

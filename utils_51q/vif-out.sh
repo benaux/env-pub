@@ -13,18 +13,24 @@ die () { echo "$@"; exit 1; }
 inputdir=$(dirname "$inputfile")
 inputbase=$(basename "$inputfile")
 
-tmux has-session -t "out" || die "Err: no session 'out'"
+#$tmux has-session -t "out" || die "Err: no session 'out'"
 
+cwd_base=$(basename $cwd)
+cwd_base_tmux=${cwd_base%.*}
 do_tmux () {
-  tmux send-keys -t "out" "$@" Enter
+  tmux send-keys -t "$cwd_base_tmux" "$@" Enter
 
-  tmux has-session -t "log" && tmux send-keys -t "log" "echo '$@'" Enter
+  #tmux has-session -t "log" && tmux send-keys -t "log" "echo '$@'" Enter
 }
 
 if [ -f "$cwd/vif.sh" ] ; then
-  do_tmux "clear && sh ./vif.sh '$inputfile'" 
-elif [ -f "$cwd/Makefile" ] ; then
+  sh ./vif.sh '$inputfile'
+elif [ -f "$cwd/Makefile.dev" ] ; then
+  do_tmux "clear && make -f Makefile.dev vif" 
+elif [ -f "$cwd/Makefile.vi" ] ; then
   do_tmux "clear && make vif" 
+elif [ -f "$cwd/Makefile" ] ; then
+  do_tmux "clear && make -f Makefile vif" 
 elif [ -f "$inputfile" ] ; then
    inputname=${Inputbase%.*}
    inputext=${inputbase##*.}

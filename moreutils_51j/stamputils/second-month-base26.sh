@@ -7,7 +7,7 @@ arg=$1
 
 die () { echo $@; exit 1; }
 
-base10tobase26=$HOME/tools/moreutils/morelibs/math/base10tobase26.pl
+base10tobase26=$HOME/tools/morelibs/mathlib/base10tobase26.pl
 [ -f "$base10tobase26" ] || die "Err: script base10tobase26 missing"
 
 userid= dateinput=

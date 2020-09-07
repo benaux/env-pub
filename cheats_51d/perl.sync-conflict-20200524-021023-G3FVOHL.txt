@@ -1,0 +1,71 @@
+Perl
+====
+
+Dir listing
+----------
+
+my @files = glob("*.pl *.pm");
+or: 
+opendir(DIR, $dir) or die $!;
+
+IO::Prompt 
+---------
+Only read one input. (Messes with @ARGS)
+Or with Term::Readkey (?) (https://metacpan.org/pod/Term::ReadKey)
+
+   #!/usr/bin/env perl
+  use strict;
+  use warnings;
+  use IO::Prompt;
+  my $key = prompt '', -1;
+  print "\nPressed key: $key\n";
+
+CWD
+----
+use Cwd qw(cwd getcwd);
+my $symbolic_link = cwd;
+my $hard_link = getcwd;
+ 
+List
+----
+
+### Are there matching elements in the list
+
+   (grep { $suspect eq $_ } @convicts) 
+
+### conditionals with the ternary operator
+   my $val = (cond) ? expr1 : expr2;
+### grep 
+   print grep { $_ =~ /$regex/ } <>;
+
+### regex case insesitive
+
+   if ($str1 =~ /^$str2$/i) { ... }
+
+### variable with scriptname
+   $0
+
+### dirname
+
+   use File::Basename
+
+   $d = dirname(fullname)
+
+### remove all newlines
+
+    $line =~ s/\015?\012?$//;
+
+
+### file slurp 
+
+    open(my $f, '<', $filename) or die "Err $filename: $!\n";
+    $string = do { local($/); <$f> };
+    close($f);
+
+### os name
+
+   use POSIX qw(uname);
+   my @uname = uname();
+   print $uname[0] . " " . $uname[2];
+
+

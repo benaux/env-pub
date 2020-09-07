@@ -9,27 +9,27 @@ die () { echo $@; exit 1; }
 [ -f "$inp" ] || touch "$inp"
 
 case "$os" in
-  Linux)
-  if which gvim > /dev/null ; then 
-     if gvim --serverlist | grep GVIM > /dev/null ; then
-        gvim --servername GVIM --remote-tab $inp
-     else
-        gvim --servername GVIM $inp
-     fi
-  else
-    die "Err: no mvim"
-  fi
-  ;;
-  Darwin)
-  if which nvr > /dev/null ; then 
-    nvr --remote $inp
-    osascript  -e 'activate application "iTerm"'
-  elif which mvim > /dev/null ; then 
-     if mvim --serverlist | grep VIM > /dev/null ; then
-        mvim --servername VIM --remote $inp
-     else
-        mvim --servername VIM $inp
-     fi
+   Linux)
+      if which gvim > /dev/null ; then 
+         if gvim --serverlist | grep GVIM > /dev/null ; then
+            gvim --servername GVIM --remote-tab $inp
+         else
+            gvim --servername GVIM $inp
+         fi
+      else
+         die "Err: no mvim"
+      fi
+   ;;
+   Darwin)
+      if which nvr > /dev/null ; then 
+         nvr --remote $inp
+         osascript  -e 'activate application "iTerm"'
+      elif which mvim > /dev/null ; then 
+         if mvim --serverlist | grep VIM > /dev/null ; then
+            mvim --servername VIM --remote $inp
+         else
+            mvim --servername VIM $inp
+      fi
 osascript <<'EOF'
 tell application "System Events"
    tell  process "MacVim"        
@@ -38,12 +38,12 @@ tell application "System Events"
    end tell
 end tell
 EOF
-  else
-    die "Err: no mvim"
-  fi
-    ;;
-  *)
-    echo "Err: os $os not implemented yet"
-    exit 1
-    ;;
+   else
+      die "Err: no mvim"
+   fi
+   ;;
+   *)
+      echo "Err: os $os not implemented yet"
+      exit 1
+   ;;
 esac
