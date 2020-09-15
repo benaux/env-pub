@@ -1,9 +1,14 @@
 
 
-dir=$HOME/.ssh
+dir=
+if [ -n "$1" ] ; then
+  dir="$1"
+else
+   dir=$HOME/.ssh
+   chmod 0700 $dir
+   chmod 0600 $dir/*
+fi
 
-chmod 0700 $dir
-chmod 0600 $dir/*
 
 [ -f "$dir/authorized_keys" ] && chmod 644 $dir/authorized_keys
 [ -f "$dir/known_hosts"  ] && chmod 644 $dir/known_hosts

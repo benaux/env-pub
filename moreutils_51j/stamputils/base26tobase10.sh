@@ -5,7 +5,7 @@ method=base26tobase10
 here=$(dirname $0)
 
 tools=$HOME/tools
-mathlib=$tools/moreutils/morelibs/math
+mathlib=$tools/morelibs/mathlib
 
 input=$1
 

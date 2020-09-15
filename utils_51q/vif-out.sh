@@ -1,17 +1,18 @@
 #!/bin/sh
 
 inputfile="$1"
-cwd="$2"
+
+cwd="$(pwd)"
 
 
 die () { echo "$@"; exit 1; }
 
+inputdir= inputbase=
 [ -n "$inputfile" ]  && {
-  [ -f "$inputfile" ] || { echo "Err: invalid file"; exit 1; }
+   [ -f "$inputfile" ] || { echo "Err: invalid file"; exit 1; }
+   inputdir=$(dirname "$inputfile")
+   inputbase=$(basename "$inputfile")
 }
-
-inputdir=$(dirname "$inputfile")
-inputbase=$(basename "$inputfile")
 
 #$tmux has-session -t "out" || die "Err: no session 'out'"
 
@@ -23,8 +24,10 @@ do_tmux () {
   #tmux has-session -t "log" && tmux send-keys -t "log" "echo '$@'" Enter
 }
 
+
 if [ -f "$cwd/vif.sh" ] ; then
-  sh ./vif.sh '$inputfile'
+   do_tmux "sh ./vif.sh $inputfile"
+  #sh ./vif.sh '$inputfile'
 elif [ -f "$cwd/Makefile.dev" ] ; then
   do_tmux "clear && make -f Makefile.dev vif" 
 elif [ -f "$cwd/Makefile.vi" ] ; then

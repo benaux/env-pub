@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =8
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/Volumes/sd/usrfiles_ben_disk-store_scandisk1/musiclib-bkb/Au Revoir Simone - Spectrums-Remixes'
 let g:netrw_dirhist_8='/Users/ben/usrdir_ben_skyfall/inboxes_ben_skyfall/work-inbox_70/lisp-perl/Lisp'
 let g:netrw_dirhist_7='/Users/ben/usrdir_ben_skyfall/inboxes_ben_skyfall/work-inbox_70/lisp-perl/Lisp/Evaler'
 let g:netrw_dirhist_6='/Users/ben/usrdir_ben_skyfall/inboxes_ben_skyfall/work-inbox_70/lisp-perl/Lisp/Printer'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_3='/Users/ben/usrdir_ben_skyfall/usrnodes_ben_peernet1_skyfa
 let g:netrw_dirhist_2='/Users/ben/usrdir_ben_skyfall/usrnodes_ben_peernet1_skyfall/cloud1-data.ben.prot/work_7x/dev-oss_75/dev-oss_bentxt_75a1/ocaml-extlib/ocaml-extlib.git/test/util'
 let g:netrw_dirhist_1='/Users/ben/roots_ben_macbook_skyfall/usrnodes_ben_peernet1_skyfall/lan1-data.ben.priv/notebooks_01/dev-book_33-37/dev-notes_33'
 let g:netrw_dirhist_0='/Users/ben/roots_ben_macbook_skyfall/usrnodes_ben_peernet1_skyfall/lan1-data.ben.priv/notebooks_00/dev-book_33-37/dev-notes_33'
-let g:netrw_dirhist_9='/Users/ben/roots_ben_macbook_skyfall/usrnodes_ben_peernet1_skyfall/lan1-data.ben.priv/notebooks_00'

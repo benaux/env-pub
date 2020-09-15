@@ -29,6 +29,9 @@ alias decget "sh $TOOLS/moreutils/decimalutils/decget.sh"
 
 alias fifo "sh $UTILS/fifo.sh"
 
+alias mvi "sh $UTILS/mvi.sh"
+alias v "sh $UTILS/mvi.sh"
+
 
 set XCODE "/Applications/Xcode.app/Contents/Developer"
 alias ios_clang "$XCODE/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang"
@@ -137,6 +140,7 @@ alias l "ls | grep -v \.plist"
 alias ll "ls -al | grep -v \.plist"
 #alias l "ls -Fhtlr | grep -v \.plist"
 alias sl "ls"
+
 
 
 alias worg "mvim --remote-silent"

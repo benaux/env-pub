@@ -1,28 +1,71 @@
 #!/bin/sh
 
 dir="$1"
+playlist="$2"
 
-m3u_playlist="$dir".m3u
 
-rm -f "$m3u_playlist"
+[ "$dir" = '-h' ] && { echo "usage:[dir] [playlist]"; exit 1; }
+
+playlist_name=
+if [ -n "$dir" ] ; then
+   if [ "$dir" = '.' ] ; then 
+      cwd="$(pwd)"
+      playlist_name=$(basename "$cwd")
+    else
+      playlist_name=$(basename "$dir")
+   fi
+else
+  dir='.'
+   cwd="$(pwd)"
+   playlist_name=$(basename "$cwd")
+
+fi
+
+#[ -d "$dir" ] || { echo "Err: invalid dir"; exit 1; }
+
+m3u_playlist=
+if [ -n "$playlist" ] ; then
+   m3u_playlist="$playlist_name".m3u
+else
+   m3u_playlist="$playlist_name".m3u
+fi
+
+echo rm -f "$m3u_playlist"
+
 touch "$m3u_playlist"
 
-for songpath in "$dir"/* ; do
-   [ -f "$songpath" ] || continue
-   song=$(basename "$songpath")
+handle_file () {
+  local songpath="$1"
+#   song=$(basename "$songpath")
 
-   case "$song" in
-      *.mp3|*.m4a)
+   case "$songpath" in
+      *.mp3|*.m4a|*.flac)
          echo "$songpath"
          echo "$songpath" >> "$m3u_playlist"
       ;;
       *) : ;;
    esac
+ }
+
+
+handle_dir () {
+  local d=$1
+
+for i in "$d"/* ; do
+  [ "$d" = '.' ] && i=$(basename "$i")
+
+  if [ -f "$i" ] ; then
+     handle_file "$i"
+  elif [ -d "$i" ] ; then
+     handle_dir "$i"
+  else
+    echo "Warn: omit $i"
+  fi
 done
+}
+
+handle_dir "$dir"
 
 echo "" 
 echo "Stored in: "
 echo  "$m3u_playlist"
-
-
-

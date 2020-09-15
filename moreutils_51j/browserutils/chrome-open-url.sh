@@ -29,9 +29,10 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-input=$1
 
 activate_chrome="$2"
+
+      echo XXXXset URL of active tab of window 1 to "$input"
 
 if [ -n "$activate_chrome" ] ; then
 osascript <<END

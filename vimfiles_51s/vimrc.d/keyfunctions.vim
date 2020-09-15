@@ -1,9 +1,13 @@
-
+"vif-out.sh is triggering the vif.sh file
+" why not calling/executing vif.sh directly?
+" Because I would have to each time change the CWD path of vim 
+"
 function! Vif()
     silent !clear
 "    execute 'silent make! -f vi.mk vif 2>&1 > /dev/null \&' | redraw!
 "   silent execute  'make -s -f vi.mk vif > /dev/null 2>&1 &' | execute ':redraw!'
-   silent execute  '!(sh ~/tools/utils/vif-out.sh '  . expand("%:p") . ' ' . getcwd() .  ' &) > /dev/null' | execute ':redraw!'
+   silent execute  '!(sh ~/tools/utils/vif-out.sh '  . expand("%") . ' ' . getcwd() .  ' &) > /dev/null' | execute ':redraw!'
+   "silent execute  '!(sh ~/tools/utils/vif-out.sh '  . expand("%:p") . ' ' . getcwd() .  ' &) > /dev/null' | execute ':redraw!'
 endfunction
 
 function! Vit()
